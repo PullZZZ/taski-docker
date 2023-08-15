@@ -181,20 +181,22 @@ jobs:
         target: "taski"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
-      # env:
-        # SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        # envs: SECRET_KEY
+        envs: SECRET_KEY
         # Параметр script передаёт в action appleboy/ssh-action команды,
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение
         script: |
+          export SECRET_KEY=$SECRET_KEY
           cd taski
-          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          echo $SECRET_KEY
+          echo SECRET_KEY='${{ secrets.SECRET_KEY }}' >> .env
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose

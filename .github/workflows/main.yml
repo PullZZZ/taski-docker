@@ -196,7 +196,7 @@ jobs:
           export SECRET_KEY=$SECRET_KEY
           cd taski
           echo $SECRET_KEY
-          echo SECRET_KEY='${{ secrets.SECRET_KEY }}' >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose

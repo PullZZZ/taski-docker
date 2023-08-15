@@ -188,13 +188,13 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        envs: SECRET_KEY=${{ secrets.SECRET_KEY }}
+        envs: SECRET_KEY
         # Параметр script передаёт в action appleboy/ssh-action команды,
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение
         script: |
           cd taski
-          export SECRET_KEY=$SECRET_KEY 
+          export SECRET_KEY=${{ secrets.SECRET_KEY }}
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose

@@ -194,7 +194,7 @@ jobs:
         # с которым установлено соединение
         script: |
           cd taski
-          ECHO $SECRET_KEY
+          echo $SECRET_KEY
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose

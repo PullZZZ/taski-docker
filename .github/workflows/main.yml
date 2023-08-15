@@ -19,7 +19,6 @@ jobs:
             POSTGRES_USER: django_user
             POSTGRES_PASSWORD: django_password
             POSTGRES_DB: django_db
-            SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ports:
             - 5432:5432
           # Эта конструкция описывает проверку готовности сервиса postgres
@@ -180,6 +179,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         source: "docker-compose.production.yml"
         target: "taski"
     - name: Executing remote ssh commands to deploy

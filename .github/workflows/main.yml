@@ -86,8 +86,6 @@ jobs:
           # Параметр context: ./backend/ указывает, что нужный Dockerfile 
           # находится в ./backend/
           context: ./backend/
-          build-args:
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
           # Параметр push: true указывает, что образ нужно не только собрать,
           # но и отправить на Docker Hub
           push: true
@@ -183,21 +181,20 @@ jobs:
         target: "taski"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
-      env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      # env:
+        # SECRET_KEY: ${{ secrets.SECRET_KEY }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        envs: SECRET_KEY
+        # envs: SECRET_KEY
         # Параметр script передаёт в action appleboy/ssh-action команды,
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение
         script: |
           cd taski
-          echo ${{ secrets.SECRET_KEY }} >> te
-          # export SECRET_KEY=${{ secrets.SECRET_KEY }}
+          echo ${{ secrets.SECRET_KEY }} >> .env
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose

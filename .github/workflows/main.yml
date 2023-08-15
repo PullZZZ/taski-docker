@@ -193,7 +193,7 @@ jobs:
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение
         script: |
-          export SECRET_KEY=$SECRET_KEY
+          sudo export SECRET_KEY=$SECRET_KEY
           cd taski
           # echo $SECRET_KEY
           # echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
